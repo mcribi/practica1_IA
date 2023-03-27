@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "configurations": [
+
+        {
+            "name": "Debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceRoot}/practica1",
+            "args": ["mapas/mapa30.map", "1", "0", "6", "6", "1"],
+            "cwd": "${workspaceRoot}",
+            // "preLaunchTask": "build",
+            // set environment variables
+            // "environment": [
+            //     {
+            //         "name": "DISPLAY",
+            //         "value": ":1.0"
+            //     }
+            // ],
+            
+        }
+    ]
+}
