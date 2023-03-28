@@ -241,7 +241,7 @@ class ComportamientoJugador : public Comportamiento{
         matriz[st.fil+3][st.col+1] = terreno[14];
         matriz[st.fil+3][st.col] = terreno[15];
       }
-    s
+    
   }
 
   //compruebo las casillas que veo 
