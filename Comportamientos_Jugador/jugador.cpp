@@ -38,16 +38,18 @@ Action ComportamientoJugador::think(Sensores sensores){
 	// Determinar el efecto de la ultima accion enviada
 	int a;
 	switch(last_action){
-		case actFORWARD:
-			switch(current_state.brujula){
-				case norte: current_state.fil--; break;
-				case noreste: current_state.fil--; current_state.col++; break;
-				case este: current_state.col++; break;
-				case sureste: current_state.fil++; current_state.col++; break;
-				case sur: current_state.fil++; break;
-				case suroeste: current_state.fil++; current_state.col--; break;
-				case oeste: current_state.col--; break;
-				case noroeste: current_state.fil--; current_state.col--; break;
+		case (actFORWARD):
+			if (sensores.colision==false){
+				switch(current_state.brujula){
+					case norte: current_state.fil--; break;
+					case noreste: current_state.fil--; current_state.col++; break;
+					case este: current_state.col++; break;
+					case sureste: current_state.fil++; current_state.col++; break;
+					case sur: current_state.fil++; break;
+					case suroeste: current_state.fil++; current_state.col--; break;
+					case oeste: current_state.col--; break;
+					case noroeste: current_state.fil--; current_state.col--; break;
+				}
 			}
 			break;
 		case actTURN_SL:
@@ -72,89 +74,139 @@ Action ComportamientoJugador::think(Sensores sensores){
 			break;
 	}
 
-	// 4
-	if(sensores.terreno[0] == 'G' and !bien_situado){
+	//Nivel 1-> escribe en todo momento ya que siempre esta orientado
+	if(sensores.posC!=-1 and !bien_situado and sensores.nivel==0){
 		current_state.fil = sensores.posF;
 		current_state.col = sensores.posC;
 		current_state.brujula = sensores.sentido;
 		bien_situado = true;
 	}
 
+	//Nivel 1,2,3
+	if(sensores.terreno[0]=='G' and !bien_situado and sensores.nivel!=0){
+		//reset=false;
+		int fila_ultima=current_state.fil;
+		int col_ultima=current_state.col;
+		cout<<"Antes: "<<fila_ultima<<","<<col_ultima;
+		current_state.fil = sensores.posF;
+		current_state.col = sensores.posC;
+		current_state.brujula = sensores.sentido;
+		bien_situado = true;
+		cout<<"Actualizado: "<<current_state.fil<<","<<current_state.col;
+		
+		TransladarMatriz (current_state, mapaResultado, matriz_aprox, fila_ultima, col_ultima);
+		TransladarMatrizInt (current_state, nveces, nveces_aprox, fila_ultima, col_ultima);
+	}
+
+	//cout<<"Estoy en: "<<current_state.fil<<","<<current_state.col;
+	
 	if (sensores.reset){ //si se ha activado el reseteo esta mal situado
 		bien_situado=false;
+
+		cout<<"LOBO"<<endl;
+		zapatillas=false;
+		bikini=false;
+		//empieza con los valores por defecto
+		current_state.fil = current_state.col = mapaResultado.size(); //valor por defecto
+      	current_state.brujula = norte;
+
+		//si ha habido un reinicio, nos volvemos a desorientar y lo que habiamos recorrido se borra
+		cout<<"Estoy en: "<<current_state.fil<<","<<current_state.col;
+		for (int i=0; i<2*mapaResultado.size(); i++){
+			vector <unsigned char> fila; 
+			for (int j=0; j<2*mapaResultado.size(); j++){
+				fila.push_back('?');
+			}
+			matriz_aprox.push_back(fila);
+      	}
 	}
+
+	
 
 	if(bien_situado){
 		PonerTerrenoEnMatriz (sensores.terreno, current_state, mapaResultado);
+		//actualizamos la matriz de nveces
+		nveces[current_state.fil][current_state.col]++;
+	}else{ 
+		PonerTerrenoEnMatriz (sensores.terreno, current_state, matriz_aprox);
+		nveces_aprox[current_state.fil][current_state.col]++;
 	}
-	
-	
+
 	//DISTINGUIMOS CASOS
-	/*if (mirar_terreno('X',sensores.terreno, current_state)>0){	//hemos visto un objeto y vamos a por el 
-		accion=coger_objetos(sensores.terreno, current_state);
-	}else if (mirar_terreno('D',sensores.terreno, current_state)>0)
-	{
-		accion=coger_objetos(sensores.terreno, current_state);
-	}else if (mirar_terreno('K',sensores.terreno, current_state)>0)
-	{
-		accion=coger_objetos(sensores.terreno, current_state);
-	}
-	
-	else */if((sensores.terreno[2] == 'T' or sensores.terreno[2] == 'S' or sensores.terreno[2] == 'G') and sensores.superficie[2] == '_'){
+	if (sensores.superficie[2]=='a' or sensores.superficie[2]=='l'){
+		accion=giro_random();
+	}else if ((mirar_terreno('G',sensores.terreno)>0) && bien_situado==false && sensores.terreno[2]!='P' && sensores.terreno[2]!='M'){	
+		cout<<"He visto pos"<<endl; 
+		accion=coger_posicionamiento(sensores.terreno, current_state);
+	}else if ((mirar_terreno('X',sensores.terreno)>0) && sensores.terreno[2]!='P' && sensores.terreno[2]!='M' and (ultima_recarga-ciclos)>200){	
+		cout<<"He visto recarguita"<<endl; 
+		accion=coger_recarga(sensores.terreno, current_state);
+	}else if (sensores.terreno[0]=='X' && sensores.bateria<2000 && ciclos>1500){	
+		accion=actIDLE; //esperamos a estar cargados para seguir
+	}else if ((mirar_terreno('D',sensores.terreno)>0) && (zapatillas==false) && sensores.terreno[2]!='P' && sensores.terreno[2]!='M') {
+		cout<<"He visto zapatillas"<<endl; 
+		accion=coger_zapatillas(sensores.terreno, current_state);
+	}else if ((mirar_terreno('K',sensores.terreno)>0) && (bikini==false)&& sensores.terreno[2]!='P' && sensores.terreno[2]!='M'){
+		cout<<"He visto bikini"<<endl;
+		accion=coger_bikini(sensores.terreno, current_state);
+	}else if (ComprobarNVeces(current_state, nveces, nveces_aprox) && ngiros<3){
+		accion=giro_random();
+		ngiros++;
+		cout<<"he pasado por aqui ya mas de 4 veces"<<endl;
+	}else if((sensores.terreno[2] == 'T' or sensores.terreno[2] == 'S' or sensores.terreno[2] == 'G') and sensores.superficie[2] == '_'){
+		cout<<"estoy avanzando sin mas"<<endl;
 		accion = actFORWARD;
-	}
-	else if (sensores.terreno[2]=='K' or sensores.terreno[2]=='D' or sensores.terreno[2]=='X'){
-		if (sensores.terreno[2]=='K'){
-    		bikini=true; 
-    		accion = actFORWARD;
-    	}
-		else if (sensores.terreno[2]=='D'){
-		zapatillas=true;
-		accion = actFORWARD; 
+		ngiros=0;
+	}else if (sensores.terreno[2]!='P' and sensores.terreno[2]!='M' and ((sensores.terreno[1]==sensores.terreno[5]=='M') or (sensores.terreno[3]=='M' and sensores.terreno[7]=='M') or (sensores.terreno[1]==sensores.terreno[5]=='P') or (sensores.terreno[3]==sensores.terreno[7]=='P'))){
+		accion=actFORWARD;
+		cout<<"SIGO MURO"<<endl;
+		if (veAgujero(sensores.terreno, current_state)>0){
+			cout<<"VOY A VER AGUJERO"<<endl;
+			int donde=veAgujero(sensores.terreno, current_state);
+			cout<<"AGUJEROOO en "<<donde<<endl;
+			accion=cogerAgujero(sensores.terreno, current_state);
+			ngiros=0;
 		}
-		else if (sensores.terreno[2]=='X'){
-		recarga=true; 
-		accion = actFORWARD;
+	}else if (veAgujero(sensores.terreno, current_state)>0){
+		cout<<"VOY A VER AGUJERO"<<endl;
+		int donde=veAgujero(sensores.terreno, current_state);
+		cout<<"AGUJEROOO en "<<donde<<endl;
+		accion=cogerAgujero(sensores.terreno, current_state);
+		ngiros=0;
+	}else if (sensores.terreno[2]=='K' or sensores.terreno[2]=='D' or sensores.terreno[2]=='X'){
+		if (sensores.terreno[2]=='K'){
+    		accion = actFORWARD;
+			ngiros=0;
+			cout<<"He cogido bikini"<<endl;
+    	}else if (sensores.terreno[2]=='D'){
+			accion = actFORWARD; 
+			ngiros=0;
+			cout<<"He cogido zapas"<<endl;
+		}else if (sensores.terreno[2]=='X'){
+			accion = actFORWARD;
+			ngiros=0;
 		}
 	}
 	else if (sensores.terreno[2]=='P' or sensores.terreno[2]=='M'){
-		//accion=actTURN_BL;
-		int girar=rand()%4;
-    	if (girar==0){
-			accion=actTURN_SR;
-		}else if (girar==1){
-			accion=actTURN_BL;
-		}else if (girar==2){
-			accion=actTURN_SL;
-		}else if (girar==3){
-			accion=actTURN_BR;
-		}
-	}
-	else if (sensores.terreno[2] == 'B' and zapatillas==true){
-			accion = actFORWARD;	
-	}
-	else if (sensores.terreno[2] == 'A' and bikini==true){
-			accion = actFORWARD;	
-	}
-	else if (sensores.terreno[2] == 'B' or sensores.terreno[2] == 'A'){
-		//accion=actTURN_BR;
-		int giro=rand()%4;
-		if (giro==0){
-			//giro=(giro+1)%4;
-			accion=actTURN_SR;
-		}else if (giro==1){
-			//giro=(giro+1)%4;
-			accion=actTURN_BL;
-		}else if (giro==2){
-			//giro=(giro+1)%4;
-			accion=actTURN_SL;
-		}else if (giro==3){
-			//giro=(giro+1)%4;
-			accion=actTURN_BR;
-		}
+		accion=giro_random();
+		ngiros++;
+	}else if (sensores.terreno[2] == 'B' and zapatillas==true){
+		accion = actFORWARD;
+		ngiros=0;	
+	}else if (sensores.terreno[2] == 'A' and bikini==true){
+		accion = actFORWARD;
+		ngiros=0;	
+	}else if ((sensores.terreno[2] == 'B' or sensores.terreno[2] == 'A') and ngiros<10){
+		accion=giro_random();
+		ngiros++;
+	}else{
+		cout<<"NO ME QUEDA OTRA Q AVANZAR"<<endl;
+		accion = actFORWARD;
+		ngiros=0;	
 	}
 	
 	last_action = accion;
+	ciclos--;
 	return accion;
 }
 
@@ -162,17 +214,13 @@ int ComportamientoJugador::interact(Action accion, int valor){
   return false;
 }
 
-/*Action giro_random(){
-    Action accion;
-    int girar=rand()%4;
-    if (girar==0){
-			accion=actTURN_SR;
-		}else if (girar==1){
-			accion=actTURN_SR;
-		}else if (girar==2){
-			accion=actTURN_SL;
-		}else if (girar==3){
-			accion=actTURN_SR;
-		}
-    return accion; 
+
+/*void MatrizVeces(const vector<unsigned char> &terreno, const state &st){
+   mapaResultado.
+    for (int i=0; i<size(); i++){
+      for (int j=0; j<size; j++)
+        nveces.push_back(0); 
+    }
+    
+    nveces[st.fil][st.col] = ;
 }*/
