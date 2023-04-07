@@ -547,19 +547,256 @@ class ComportamientoJugador : public Comportamiento{
   }
 
   //mira las 16 casillas que ve y se orienta hacia la casilla menos visitada
-  /*Action giro_orientado(const vector<unsigned char> &terreno){  
+  Action giro_orientado(const vector<unsigned char> &terreno, const state &st, vector<vector<int>>&matriz){  
     Action accion; 
-    int menor_visita=terreno[1];
+
+    //Mi idea es ver el menor elemento de la matriz y orientarme hacia esa casilla
+    //int min=min_element(matriz.begin(), matriz.end());
+
+
+    int menor_visita=20;
+    vector <int> casillas_visibles(16);
+    int donde_ir=-1;
     
-    for (int i=1; i<16; i++){
-      if (terreno[i]<menor_visita)
-        menor_visita=terreno[i];
+    casillas_visibles[0] =matriz[st.fil][st.col] ;
+    if ((current_state.brujula==norte) or (current_state.brujula==sur) or (current_state.brujula==este) or (current_state.brujula==oeste))
+      if (current_state.brujula==sur){
+        casillas_visibles[0]=matriz[st.fil][st.col] ;
+
+        casillas_visibles[1]=matriz[st.fil+1][st.col+1];
+        casillas_visibles[2]=matriz[st.fil+1][st.col] ;
+        casillas_visibles[3]=matriz[st.fil+1][st.col-1] ;
+
+        casillas_visibles[4]=matriz[st.fil+2][st.col+2];
+        casillas_visibles[5]=matriz[st.fil+2][st.col+1] ;
+        casillas_visibles[6]=matriz[st.fil+2][st.col];
+        casillas_visibles[7]=matriz[st.fil+2][st.col-1];
+        casillas_visibles[8]=matriz[st.fil+2][st.col-2];
+
+        casillas_visibles[9]=matriz[st.fil+3][st.col+3];
+        casillas_visibles[10]=matriz[st.fil+3][st.col+2];
+        casillas_visibles[11]=matriz[st.fil+3][st.col+1];
+        casillas_visibles[12]=matriz[st.fil+3][st.col];
+        casillas_visibles[13]=matriz[st.fil+3][st.col-1];
+        casillas_visibles[14]=matriz[st.fil+3][st.col-2];
+        casillas_visibles[15]=matriz[st.fil+3][st.col-3];  
+      }
+
+      if (current_state.brujula==norte){
+        casillas_visibles[0]=matriz[st.fil][st.col];
+
+        casillas_visibles[1]=matriz[st.fil-1][st.col-1];
+        casillas_visibles[2]=matriz[st.fil-1][st.col];
+        casillas_visibles[3]= matriz[st.fil-1][st.col+1];
+
+        casillas_visibles[4]=matriz[st.fil-2][st.col-2];
+        casillas_visibles[5]=matriz[st.fil-2][st.col-1];
+        casillas_visibles[6]=matriz[st.fil-2][st.col];
+        casillas_visibles[7]=matriz[st.fil-2][st.col+1];
+        casillas_visibles[8]=matriz[st.fil-2][st.col+2];
+
+        casillas_visibles[9]=matriz[st.fil-3][st.col-3];
+        casillas_visibles[10]=matriz[st.fil-3][st.col-2];
+        casillas_visibles[11]=matriz[st.fil-3][st.col-1];
+        casillas_visibles[12]=matriz[st.fil-3][st.col];
+        casillas_visibles[13]=matriz[st.fil-3][st.col+1];
+        casillas_visibles[14]=matriz[st.fil-3][st.col+2];
+        casillas_visibles[15]=matriz[st.fil-3][st.col+3];
+      }
+
+      if (current_state.brujula==este){
+        casillas_visibles[0]=matriz[st.fil][st.col] ;
+
+        casillas_visibles[1]=matriz[st.fil-1][st.col+1];
+        casillas_visibles[2]=matriz[st.fil][st.col+1];
+        casillas_visibles[3]=matriz[st.fil+1][st.col+1];
+
+        casillas_visibles[4] = matriz[st.fil-2][st.col+2];
+        casillas_visibles[5] = matriz[st.fil-1][st.col+2];
+        casillas_visibles[6] = matriz[st.fil][st.col+2];
+        casillas_visibles[7] = matriz[st.fil+1][st.col+2];
+        casillas_visibles[8] = matriz[st.fil+2][st.col+2];
+
+
+        casillas_visibles[9] = matriz[st.fil-3][st.col+3];
+        casillas_visibles[10] = matriz[st.fil-2][st.col+3];
+        casillas_visibles[11] = matriz[st.fil-1][st.col+3];
+        casillas_visibles[12] = matriz[st.fil][st.col+3];
+        casillas_visibles[13] = matriz[st.fil+1][st.col+3];
+        casillas_visibles[14] = matriz[st.fil+2][st.col+3];
+        casillas_visibles[15] = matriz[st.fil+3][st.col+3];
+
+      }
+
+      if (current_state.brujula==oeste){
+       casillas_visibles[0] = matriz[st.fil][st.col];
+
+      casillas_visibles[1] = matriz[st.fil+1][st.col-1];
+      casillas_visibles[2] = matriz[st.fil][st.col-1];
+      casillas_visibles[3] = matriz[st.fil-1][st.col-1];
+
+      casillas_visibles[4] = matriz[st.fil+2][st.col-2];
+      casillas_visibles[5] = matriz[st.fil+1][st.col-2];
+      casillas_visibles[6] = matriz[st.fil][st.col-2];
+      casillas_visibles[7] = matriz[st.fil-1][st.col-2];
+      casillas_visibles[8] = matriz[st.fil-2][st.col-2];
+
+      casillas_visibles[9] = matriz[st.fil+3][st.col-3];
+      casillas_visibles[10] = matriz[st.fil+2][st.col-3];
+      casillas_visibles[11] = matriz[st.fil+1][st.col-3];
+      casillas_visibles[12] = matriz[st.fil][st.col-3];
+      casillas_visibles[13] = matriz[st.fil-1][st.col-3];
+      casillas_visibles[14] = matriz[st.fil-2][st.col-3];
+      casillas_visibles[15] = matriz[st.fil-3][st.col-3];
+
+      }
+
+      if (current_state.brujula==noreste){
+        casillas_visibles[0] = matriz[st.fil][st.col];
+
+        casillas_visibles[1] = matriz[st.fil-1][st.col];
+        casillas_visibles[2] = matriz[st.fil-1][st.col+1];
+        casillas_visibles[3] = matriz[st.fil][st.col+1];
+
+        casillas_visibles[4] = matriz[st.fil-2][st.col];
+        casillas_visibles[5] = matriz[st.fil-2][st.col+1];
+        casillas_visibles[6] = matriz[st.fil-2][st.col+2];
+        casillas_visibles[7] = matriz[st.fil-1][st.col+2];
+        casillas_visibles[8] = matriz[st.fil][st.col+2];
+
+        casillas_visibles[9] = matriz[st.fil-3][st.col];
+        casillas_visibles[10] = matriz[st.fil-3][st.col+1];
+        casillas_visibles[11] = matriz[st.fil-3][st.col+2];
+        casillas_visibles[12] = matriz[st.fil-3][st.col+3];
+        casillas_visibles[13] = matriz[st.fil-2][st.col+3];
+        casillas_visibles[14] = matriz[st.fil-1][st.col+3];
+        casillas_visibles[15] = matriz[st.fil][st.col+3];
+
+      }
+
+      if (current_state.brujula==noroeste){
+        casillas_visibles[0] = matriz[st.fil][st.col];
+
+        casillas_visibles[1] = matriz[st.fil][st.col-1];
+        casillas_visibles[2] = matriz[st.fil-1][st.col-1];
+        casillas_visibles[3] = matriz[st.fil-1][st.col];
+
+        casillas_visibles[4] = matriz[st.fil][st.col-2];
+        casillas_visibles[5] = matriz[st.fil-1][st.col-2];
+        casillas_visibles[6] = matriz[st.fil-2][st.col-2];
+        casillas_visibles[7] = matriz[st.fil-2][st.col-1];
+        casillas_visibles[8] = matriz[st.fil-2][st.col];
+
+        casillas_visibles[9] = matriz[st.fil][st.col-3];
+        casillas_visibles[10] = matriz[st.fil-1][st.col-3];
+        casillas_visibles[11] = matriz[st.fil-2][st.col-3];
+        casillas_visibles[12] = matriz[st.fil-3][st.col-3];
+        casillas_visibles[13] = matriz[st.fil-3][st.col-2];
+        casillas_visibles[14] = matriz[st.fil-3][st.col-1];
+        casillas_visibles[15] = matriz[st.fil-3][st.col];
+
+      }
+
+      if (current_state.brujula==suroeste){
+        casillas_visibles[0] = matriz[st.fil][st.col];
+
+        casillas_visibles[1] = matriz[st.fil+1][st.col];
+        casillas_visibles[2] = matriz[st.fil+1][st.col-1];
+        casillas_visibles[3] = matriz[st.fil][st.col-1];
+
+        casillas_visibles[4] = matriz[st.fil+2][st.col];
+        casillas_visibles[5] = matriz[st.fil+2][st.col-1];
+        casillas_visibles[6] = matriz[st.fil+2][st.col-2];
+        casillas_visibles[7] = matriz[st.fil+1][st.col-2];
+        casillas_visibles[8] = matriz[st.fil][st.col-2];
+
+        casillas_visibles[9] = matriz[st.fil+3][st.col];
+        casillas_visibles[10] = matriz[st.fil+3][st.col-1];
+        casillas_visibles[11] = matriz[st.fil+3][st.col-2];
+        casillas_visibles[12] = matriz[st.fil+3][st.col-3];
+        casillas_visibles[13] = matriz[st.fil+2][st.col-3];
+        casillas_visibles[14] = matriz[st.fil+1][st.col-3];
+        casillas_visibles[15] = matriz[st.fil][st.col-3];
+
+      }
+
+      if (current_state.brujula==sureste){
+        casillas_visibles[0] = matriz[st.fil][st.col];
+
+        casillas_visibles[1] = matriz[st.fil][st.col+1];
+        casillas_visibles[2] = matriz[st.fil+1][st.col+1];
+        casillas_visibles[3] = matriz[st.fil+1][st.col];
+
+        casillas_visibles[4] = matriz[st.fil][st.col+2];
+        casillas_visibles[5] = matriz[st.fil+1][st.col+2];
+        casillas_visibles[6] = matriz[st.fil+2][st.col+2];
+        casillas_visibles[7] = matriz[st.fil+2][st.col+1];
+        casillas_visibles[8] = matriz[st.fil+2][st.col];
+
+        casillas_visibles[9] = matriz[st.fil][st.col+3];
+        casillas_visibles[10] = matriz[st.fil+1][st.col+3];
+        casillas_visibles[11] = matriz[st.fil+2][st.col+3];
+        casillas_visibles[12] = matriz[st.fil+3][st.col+3];
+        casillas_visibles[13] = matriz[st.fil+3][st.col+2];
+        casillas_visibles[14] = matriz[st.fil+3][st.col+1];
+        casillas_visibles[15] = matriz[st.fil+3][st.col];
+
+      }
+
+      //ponemos innacesibles las casillas que tengan muros o precipicios
+      for (int i=0; i<16; i++){
+        if (terreno[i]=='P' or terreno[i]=='M')
+          casillas_visibles[i]=40;//nunca entrara porque tiene "muchas visitas"
+      }
+
+
+      //miramos del vector el que tiene menos
+      //bool encontrado=false;
+      int menos_visitas=20;
+      int i=1;
+      int casilla_menos_visitada=-1;
+
+      while (i<=15){
+        if (casillas_visibles[i]<menos_visitas){
+          menos_visitas=casillas_visibles[i];
+          casilla_menos_visitada=i;
+        }
+        i++;
+      }
+
+  cout<<"MENOS VISITADA: "<<casilla_menos_visitada<<"con un total de: "<<menos_visitas<<endl; 
+
+    if (casilla_menos_visitada>0 and terreno[2]!='P' and terreno[2]!='M')
+      return orientarse(casilla_menos_visitada); 
+    else{
+      return giro_random();
+      cout<<"na, hago giro random"<<endl; 
     }
+  } 
 
+  Action orientarse (int donde_pos){
+    Action accion_a_realizar; 
+    bool he_visto_linea_recta=false;
 
+    if (he_visto_linea_recta){
+      accion_a_realizar=actFORWARD;
+    }else if (donde_pos==2){
+      accion_a_realizar=actFORWARD;
+      reset =false;
+    }else if (donde_pos==6 or donde_pos==12 or donde_pos==10 or donde_pos==11 or donde_pos==7 or donde_pos==13 or donde_pos==14 ){
+      accion_a_realizar=actFORWARD;
+    }else if ((donde_pos==1 or donde_pos==4 or donde_pos==9  or donde_pos==5 )){
+      accion_a_realizar=actTURN_SL; 
+      he_visto_linea_recta=true;
+    }else if (donde_pos==3 or donde_pos==8 or donde_pos==15 )
+    {  
+      accion_a_realizar=actTURN_SR;
+      he_visto_linea_recta=true;
+    }else 
+      accion_a_realizar=actFORWARD;
 
-    return accion; 
-  }*/
+    return accion_a_realizar; 
+  }
   
   int veAgujero(const vector<unsigned char> &terreno, const state &st){
     //Action accion;

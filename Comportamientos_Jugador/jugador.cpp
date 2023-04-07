@@ -132,7 +132,11 @@ Action ComportamientoJugador::think(Sensores sensores){
 
 	//DISTINGUIMOS CASOS
 	if (sensores.superficie[2]=='a' or sensores.superficie[2]=='l'){
-		accion=giro_random();
+		//accion=giro_random();
+		if (bien_situado)
+			accion=giro_orientado(sensores.terreno, current_state, nveces); 
+		else 
+			accion=giro_orientado(sensores.terreno, current_state, nveces_aprox); 
 		ngiros++;
 	}else if (ve_agujero  and sensores.terreno[2]!='M' and sensores.terreno[2]!='P'){
 		cout<<"Antes he hecho la casilla "<<cont<<endl;
@@ -183,7 +187,12 @@ Action ComportamientoJugador::think(Sensores sensores){
 		ngiros=0;
 		accion=acciones[cont];
 	}else if (ComprobarNVeces(current_state, nveces, nveces_aprox) && ngiros<3){
-		accion=giro_random();
+		//accion=giro_random();
+		cout<<"comprueboNVeces"<<endl; 
+		if (bien_situado)
+			accion=giro_orientado(sensores.terreno, current_state, nveces); 
+		else 
+			accion=giro_orientado(sensores.terreno, current_state, nveces_aprox); 
 		ngiros++;
 		cout<<"he pasado por aqui ya mas de 4 veces"<<endl;
 	}else if (sensores.terreno[2]!='P' and sensores.terreno[2]!='M' and ((sensores.terreno[1]=='M' and sensores.terreno[5]=='M') or (sensores.terreno[3]=='M' and sensores.terreno[7]=='M') or (sensores.terreno[1]=='P' and sensores.terreno[5]=='P') or (sensores.terreno[3]=='P' and sensores.terreno[7]=='P'))){
