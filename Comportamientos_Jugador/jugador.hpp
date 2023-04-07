@@ -35,6 +35,12 @@ class ComportamientoJugador : public Comportamiento{
       reset=false;
       he_girado=false;
       ultima_recarga=2999;
+      ve_agujero=false;
+      //donde=-1;
+      cont=-1;
+      donde_ve_agujero=-1;
+      recargando=0;
+      
 
       //Inicialzamos la matriz de numero de veces pasada por cada casilla
       for (int i=0; i<size; i++){
@@ -63,12 +69,14 @@ class ComportamientoJugador : public Comportamiento{
       }
 
       //Sabemos que hay 3x3 de precipicio
-      for (int i=0; i<size; i++){
-        for (int j=0; j<size; j++){
-          if (i<3 or j<3 or j>(size-4) or i>(size-4))
-            mapaResultado[i][j]='P';
+      //if (!reset){  //solo lo hacemos una vez
+        for (int i=0; i<size; i++){
+          for (int j=0; j<size; j++){
+            if (i<3 or j<3 or j>(size-4) or i>(size-4))
+              mapaResultado[i][j]='P';
+          }
         }
-      }
+      //}
 
 
     }
@@ -100,6 +108,12 @@ class ComportamientoJugador : public Comportamiento{
   bool reset;
   bool he_girado;
   int ultima_recarga;
+  bool ve_agujero;
+  vector <Action> acciones;
+  //int donde;
+  int cont;
+  int donde_ve_agujero;
+  int recargando;
 
 
   void TransladarMatriz(const state &st, vector<vector<unsigned char>>&matriz_real, vector<vector<unsigned char>>&matriz_inventada, int fil_ult, int col_ult){
@@ -327,12 +341,12 @@ class ComportamientoJugador : public Comportamiento{
     bool encontrado=false;
     int donde=-1;
     int i=1;
-    while (i<=16 && !encontrado){
-      i++;
+    while (i<=15 && !encontrado){
       if (terreno[i]==casilla){
         encontrado=true;
         donde=i;
       }
+      i++;
     }
     return donde;
     cout<<"he visto en"<<donde<<endl; 
@@ -350,7 +364,7 @@ class ComportamientoJugador : public Comportamiento{
       }else if (donde_bikini==2){
         accion_a_realizar=actFORWARD;
         bikini=true;
-      }else if ( donde_bikini==6 or donde_bikini==12 or donde_bikini==5 or donde_bikini==10 or donde_bikini==11 or donde_bikini==7 or donde_bikini==8 or donde_bikini==13 or donde_bikini==14 ){
+      }else if ( donde_bikini==6 or donde_bikini==12 or donde_bikini==5 or donde_bikini==10 or donde_bikini==11 or donde_bikini==7 or donde_bikini==13 or donde_bikini==14 ){
         accion_a_realizar=actFORWARD;
       }else if ((donde_bikini==1 or donde_bikini==4 or donde_bikini==9 )){
         accion_a_realizar=actTURN_SL; 
@@ -376,7 +390,7 @@ class ComportamientoJugador : public Comportamiento{
       }else if (donde_zapatillas==2){
         accion_a_realizar=actFORWARD;
         zapatillas=true;
-      }else if (donde_zapatillas==6 or donde_zapatillas==12 or donde_zapatillas==5 or donde_zapatillas==10 or donde_zapatillas==11 or donde_zapatillas==7 or donde_zapatillas==8 or donde_zapatillas==13 or donde_zapatillas==14 ){
+      }else if (donde_zapatillas==6 or donde_zapatillas==12 or donde_zapatillas==5 or donde_zapatillas==10 or donde_zapatillas==11 or donde_zapatillas==7 or donde_zapatillas==13 or donde_zapatillas==14 ){
         accion_a_realizar=actFORWARD;
       }else if ((donde_zapatillas==1 or donde_zapatillas==4 or donde_zapatillas==9 )){
         accion_a_realizar=actTURN_SL; 
@@ -405,7 +419,7 @@ class ComportamientoJugador : public Comportamiento{
         accion_a_realizar=actFORWARD;
         recarga=true;
         ultima_recarga=ciclos;  
-      }else if (donde_recarga==6 or donde_recarga==12 or donde_recarga==5 or donde_recarga==10 or donde_recarga==11 or donde_recarga==7 or donde_recarga==8 or donde_recarga==13 or donde_recarga==14 ){
+      }else if (donde_recarga==6 or donde_recarga==12 or donde_recarga==5 or donde_recarga==10 or donde_recarga==11 or donde_recarga==7 or donde_recarga==13 or donde_recarga==14 ){
          accion_a_realizar=actFORWARD;
       }else if ((donde_recarga==1 or donde_recarga==4 or donde_recarga==9 )){
         accion_a_realizar=actTURN_SL; 
@@ -425,15 +439,16 @@ class ComportamientoJugador : public Comportamiento{
     Action accion_a_realizar;
     int donde_pos=mirar_terreno('G',terreno);
     bool he_visto_linea_recta=false;
+    cout<<"Veo pos en "<<donde_pos<<endl;
     
     if (he_visto_linea_recta){
         accion_a_realizar=actFORWARD;
       }else if (donde_pos==2){
         accion_a_realizar=actFORWARD;
         reset =false;
-      }else if (donde_pos==6 or donde_pos==12 or donde_pos==5 or donde_pos==10 or donde_pos==11 or donde_pos==7 or donde_pos==8 or donde_pos==13 or donde_pos==14 ){
+      }else if (donde_pos==6 or donde_pos==12 or donde_pos==10 or donde_pos==11 or donde_pos==7 or donde_pos==13 or donde_pos==14 ){
         accion_a_realizar=actFORWARD;
-      }else if ((donde_pos==1 or donde_pos==4 or donde_pos==9 )){
+      }else if ((donde_pos==1 or donde_pos==4 or donde_pos==9  or donde_pos==5 )){
         accion_a_realizar=actTURN_SL; 
         he_visto_linea_recta=true;
       }else if (donde_pos==3 or donde_pos==8 or donde_pos==15 )
@@ -446,31 +461,74 @@ class ComportamientoJugador : public Comportamiento{
     
     return accion_a_realizar; 
   }
-
-  Action cogerAgujero(const vector<unsigned char> &terreno, const state &st){
+  void cogerAgujero(const vector<unsigned char> &terreno, const state &st, int donde_pos){
     Action accion_a_realizar;
-    int donde_pos=veAgujero(terreno, st);
-    bool he_visto_linea_recta=false;
+    cout<<"Antes he visto que estaba en "<<donde_pos<<endl;
     
-    if (he_visto_linea_recta){
-        accion_a_realizar=actFORWARD;
-      }else if (donde_pos==2){
-        accion_a_realizar=actFORWARD;
-        reset =false;
-      }else if (donde_pos==6 or donde_pos==12 or donde_pos==5 or donde_pos==10 or donde_pos==11 or donde_pos==7 or donde_pos==8 or donde_pos==13 or donde_pos==14 ){
-        accion_a_realizar=actFORWARD;
-      }else if ((donde_pos==1 or donde_pos==4 or donde_pos==9 )){
-        accion_a_realizar=actTURN_SL; 
-        he_visto_linea_recta=true;
-      }else if (donde_pos==3 or donde_pos==8 or donde_pos==15 )
-      {  
-        accion_a_realizar=actTURN_SR;
-        he_visto_linea_recta=true;
-      }else 
-        accion_a_realizar=actFORWARD;
-    
-    
-    return accion_a_realizar; 
+    if (donde_pos==5){
+      cout<<"Voy a por el 5"<<endl;
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actTURN_SL);
+      acciones.push_back(actFORWARD);
+      //acciones.push_back(actFORWARD);
+      
+    }//en el 7
+    else if (donde_pos==7){
+      cout<<"Voy a por el 7"<<endl;
+      
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actTURN_SR);
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actFORWARD);
+      
+    }//en el 10
+    else if (donde_pos==10){
+      cout<<"Voy a por el 10"<<endl;
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actTURN_SL);
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actFORWARD);
+      //acciones.push_back(actFORWARD);
+     
+    }//en el 11
+    else if (donde_pos==11) {  
+      cout<<"Voy a por el 11"<<endl;
+      acciones.push_back(actFORWARD);
+
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actTURN_SL);
+      acciones.push_back(actFORWARD);
+      /*
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actTURN_SR);
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actTURN_SL);
+      acciones.push_back(actTURN_SL);
+        */
+    }//en el 12
+    else if (donde_pos==12){
+      cout<<"Voy a por el 12"<<endl;
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actFORWARD);
+    }//en el 13
+    else if (donde_pos==13){
+      cout<<"Voy a por el 13"<<endl;
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actTURN_SR);
+      acciones.push_back(actFORWARD);
+    }//en el 14
+    else if (donde_pos==14){
+      cout<<"Voy a por el 14"<<endl;
+      
+      acciones.push_back(actTURN_SR);
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actFORWARD);
+      acciones.push_back(actFORWARD);
+      //acciones.push_back(actFORWARD);
+    }
   }
 
   Action giro_random(){
@@ -488,11 +546,19 @@ class ComportamientoJugador : public Comportamiento{
     return accion; 
   }
 
-  /*accion seguirMuro (const vector<unsigned char> &terreno, const state &st){
-    Action accion;
+  //mira las 16 casillas que ve y se orienta hacia la casilla menos visitada
+  /*Action giro_orientado(const vector<unsigned char> &terreno){  
+    Action accion; 
+    int menor_visita=terreno[1];
+    
+    for (int i=1; i<16; i++){
+      if (terreno[i]<menor_visita)
+        menor_visita=terreno[i];
+    }
 
 
-    return accion;
+
+    return accion; 
   }*/
   
   int veAgujero(const vector<unsigned char> &terreno, const state &st){
@@ -522,6 +588,10 @@ class ComportamientoJugador : public Comportamiento{
       donde=13;
     else if (terreno[13]=='P' and terreno[15]=='P' and terreno[14]!='P')
       donde=14;
+    else if (terreno[3]=='P' and terreno[13]=='P' and terreno[7]!='P')
+      donde=7;
+    else if (terreno[1]=='P' and terreno[11]=='P' and terreno[5]!='P')
+      donde=5;
     else if (terreno[1]=='M' and terreno[3]=='M' and terreno[2]!='M')
       donde=2;
     else if (terreno[5]=='M' and terreno[7]=='M' and terreno[6]!='M')
