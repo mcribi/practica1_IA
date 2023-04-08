@@ -1,7 +1,7 @@
-Media mapa 30:  99.99		
-Media mapa 50:  95.69
-Media mapa 75:  86.41
-Media de los tres mapas:  94.03
+Media mapa 30:  100.00
+Media mapa 50:  94.96
+Media mapa 75:  85.88
+Media de los tres mapas:  93.61
 Mapa30 | Semilla: 0 | Nivel: 0 | Coordenadas: (03, 03) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 0 | Coordenadas: (25, 11) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 0 | Coordenadas: (22, 11) | Orientación: 0 | Porcentaje: 	100
@@ -23,7 +23,7 @@ Mapa30 | Semilla: 0 | Nivel: 1 | Coordenadas: (22, 11) | Orientación: 0 | Porce
 Mapa30 | Semilla: 0 | Nivel: 1 | Coordenadas: (08, 14) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 1 | Coordenadas: (07, 26) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 2 | Coordenadas: (03, 03) | Orientación: 0 | Porcentaje: 	100
-Mapa30 | Semilla: 0 | Nivel: 2 | Coordenadas: (25, 11) | Orientación: 0 | Porcentaje: 	99.8889
+Mapa30 | Semilla: 0 | Nivel: 2 | Coordenadas: (25, 11) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 2 | Coordenadas: (22, 11) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 2 | Coordenadas: (08, 14) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 2 | Coordenadas: (07, 26) | Orientación: 0 | Porcentaje: 	100
@@ -31,51 +31,51 @@ Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (03, 03) | Orientación: 0 | Porce
 Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (25, 11) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (22, 11) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (08, 14) | Orientación: 0 | Porcentaje: 	100
-Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (07, 26) | Orientación: 0 | Porcentaje: 	99.8889
+Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (07, 26) | Orientación: 0 | Porcentaje: 	100
 Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (42, 19) | Orientación: 0 | Porcentaje: 	98.12
 Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (07, 09) | Orientación: 0 | Porcentaje: 	91.56
 Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (09, 42) | Orientación: 0 | Porcentaje: 	98.88
 Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (42, 19) | Orientación: 2 | Porcentaje: 	93.16
 Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (07, 09) | Orientación: 2 | Porcentaje: 	99.12
-Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (09, 42) | Orientación: 2 | Porcentaje: 	96.28
+Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (09, 42) | Orientación: 2 | Porcentaje: 	96.36
 Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (42, 19) | Orientación: 4 | Porcentaje: 	97.64
 Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (07, 09) | Orientación: 4 | Porcentaje: 	99.88
 Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (09, 42) | Orientación: 4 | Porcentaje: 	86.28
-Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (42, 19) | Orientación: 5 | Porcentaje: 	88.08
+Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (42, 19) | Orientación: 5 | Porcentaje: 	88.48
 Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (07, 09) | Orientación: 5 | Porcentaje: 	99.72
 Mapa50 | Semilla: 0 | Nivel: 0 | Coordenadas: (09, 42) | Orientación: 5 | Porcentaje: 	100
 Mapa50 | Semilla: 0 | Nivel: 1 | Coordenadas: (42, 19) | Orientación: 0 | Porcentaje: 	89.12
 Mapa50 | Semilla: 0 | Nivel: 1 | Coordenadas: (07, 09) | Orientación: 0 | Porcentaje: 	86.28
-Mapa50 | Semilla: 0 | Nivel: 1 | Coordenadas: (09, 42) | Orientación: 0 | Porcentaje: 	98.72
-Mapa50 | Semilla: 0 | Nivel: 2 | Coordenadas: (42, 19) | Orientación: 0 | Porcentaje: 	99.76
+Mapa50 | Semilla: 0 | Nivel: 1 | Coordenadas: (09, 42) | Orientación: 0 | Porcentaje: 	98.76
+Mapa50 | Semilla: 0 | Nivel: 2 | Coordenadas: (42, 19) | Orientación: 0 | Porcentaje: 	100
 Mapa50 | Semilla: 0 | Nivel: 2 | Coordenadas: (07, 09) | Orientación: 0 | Porcentaje: 	94.24
-Mapa50 | Semilla: 0 | Nivel: 2 | Coordenadas: (09, 42) | Orientación: 0 | Porcentaje: 	99.56
-Mapa50 | Semilla: 0 | Nivel: 3 | Coordenadas: (42, 19) | Orientación: 0 | Porcentaje: 	99.4
-Mapa50 | Semilla: 0 | Nivel: 3 | Coordenadas: (07, 09) | Orientación: 0 | Porcentaje: 	93.88
-Mapa50 | Semilla: 0 | Nivel: 3 | Coordenadas: (09, 42) | Orientación: 0 | Porcentaje: 	100
+Mapa50 | Semilla: 0 | Nivel: 2 | Coordenadas: (09, 42) | Orientación: 0 | Porcentaje: 	90.76
+Mapa50 | Semilla: 0 | Nivel: 3 | Coordenadas: (42, 19) | Orientación: 0 | Porcentaje: 	99.92
+Mapa50 | Semilla: 0 | Nivel: 3 | Coordenadas: (07, 09) | Orientación: 0 | Porcentaje: 	96.52
+Mapa50 | Semilla: 0 | Nivel: 3 | Coordenadas: (09, 42) | Orientación: 0 | Porcentaje: 	89.44
 Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (63, 29) | Orientación: 0 | Porcentaje: 	54.8089
 Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (23, 29) | Orientación: 0 | Porcentaje: 	84.6578
-Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (34, 60) | Orientación: 0 | Porcentaje: 	84.4267
+Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (34, 60) | Orientación: 0 | Porcentaje: 	84.48
 Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (34, 21) | Orientación: 0 | Porcentaje: 	92.4089
-Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (63, 29) | Orientación: 1 | Porcentaje: 	91.36
-Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (23, 29) | Orientación: 1 | Porcentaje: 	85.0311
+Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (63, 29) | Orientación: 1 | Porcentaje: 	91.3778
+Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (23, 29) | Orientación: 1 | Porcentaje: 	85.0489
 Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (34, 60) | Orientación: 1 | Porcentaje: 	86.6489
-Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (34, 21) | Orientación: 1 | Porcentaje: 	90.9689
+Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (34, 21) | Orientación: 1 | Porcentaje: 	91.2356
 Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (63, 29) | Orientación: 3 | Porcentaje: 	92.0533
-Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (23, 29) | Orientación: 3 | Porcentaje: 	84.9244
+Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (23, 29) | Orientación: 3 | Porcentaje: 	84.9422
 Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (34, 60) | Orientación: 3 | Porcentaje: 	86.7022
-Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (34, 21) | Orientación: 3 | Porcentaje: 	90.4889
+Mapa75 | Semilla: 0 | Nivel: 0 | Coordenadas: (34, 21) | Orientación: 3 | Porcentaje: 	90.5244
 Mapa75 | Semilla: 0 | Nivel: 1 | Coordenadas: (63, 29) | Orientación: 0 | Porcentaje: 	90.7556
 Mapa75 | Semilla: 0 | Nivel: 1 | Coordenadas: (23, 29) | Orientación: 0 | Porcentaje: 	83.0578
 Mapa75 | Semilla: 0 | Nivel: 1 | Coordenadas: (34, 60) | Orientación: 0 | Porcentaje: 	80.6044
 Mapa75 | Semilla: 0 | Nivel: 1 | Coordenadas: (34, 21) | Orientación: 0 | Porcentaje: 	92.4089
 Mapa75 | Semilla: 0 | Nivel: 2 | Coordenadas: (63, 29) | Orientación: 0 | Porcentaje: 	84.3911
-Mapa75 | Semilla: 0 | Nivel: 2 | Coordenadas: (23, 29) | Orientación: 0 | Porcentaje: 	77.7422
+Mapa75 | Semilla: 0 | Nivel: 2 | Coordenadas: (23, 29) | Orientación: 0 | Porcentaje: 	80.3022
 Mapa75 | Semilla: 0 | Nivel: 2 | Coordenadas: (34, 60) | Orientación: 0 | Porcentaje: 	85.9022
-Mapa75 | Semilla: 0 | Nivel: 2 | Coordenadas: (34, 21) | Orientación: 0 | Porcentaje: 	92.6044
+Mapa75 | Semilla: 0 | Nivel: 2 | Coordenadas: (34, 21) | Orientación: 0 | Porcentaje: 	88.7644
 Mapa75 | Semilla: 0 | Nivel: 3 | Coordenadas: (63, 29) | Orientación: 0 | Porcentaje: 	89.8667
-Mapa75 | Semilla: 0 | Nivel: 3 | Coordenadas: (23, 29) | Orientación: 0 | Porcentaje: 	85.5289
-Mapa75 | Semilla: 0 | Nivel: 3 | Coordenadas: (34, 60) | Orientación: 0 | Porcentaje: 	94.0978
+Mapa75 | Semilla: 0 | Nivel: 3 | Coordenadas: (23, 29) | Orientación: 0 | Porcentaje: 	72.6222
+Mapa75 | Semilla: 0 | Nivel: 3 | Coordenadas: (34, 60) | Orientación: 0 | Porcentaje: 	95.2711
 Mapa75 | Semilla: 0 | Nivel: 3 | Coordenadas: (34, 21) | Orientación: 0 | Porcentaje: 	92.4622
 
 NOTA: los huecos vacios son 'Segmentation fault'

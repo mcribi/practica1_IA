@@ -168,7 +168,7 @@ Action ComportamientoJugador::think(Sensores sensores){
 		cout<<"He visto recarguita"<<endl; 
 		accion=coger_recarga(sensores.terreno, current_state);
 		ngiros=0;
-	}else if (sensores.terreno[0]=='X' && sensores.bateria<2250 && ciclos>1000 ){	
+	}else if (sensores.terreno[0]=='X' && sensores.bateria<2275 && ciclos>1000 ){	
 		accion=actIDLE; //esperamos a estar cargados para seguir
 		/*if (bien_situado)
 			accion=giro_orientado(sensores.terreno, current_state, nveces); 
