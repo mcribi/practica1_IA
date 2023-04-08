@@ -1,4 +1,4 @@
-Media mapa 30:  99.99
+Media mapa 30:  99.99		//ESTE ES EL MAASS BUENO
 Media mapa 50:  95.69
 Media mapa 75:  86.41
 Media de los tres mapas:  94.03
