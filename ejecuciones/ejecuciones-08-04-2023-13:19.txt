@@ -1,4 +1,4 @@
-Media mapa 30:  99.90		//ESTE ES EL BUENO
+Media mapa 30:  99.90
 Media mapa 50:  93.76
 Media mapa 75:  81.83
 Media de los tres mapas:  91.83
@@ -28,7 +28,7 @@ Mapa30 | Semilla: 0 | Nivel: 2 | Coordenadas: (22, 11) | Orientación: 0 | Porce
 Mapa30 | Semilla: 0 | Nivel: 2 | Coordenadas: (08, 14) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 2 | Coordenadas: (07, 26) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (03, 03) | Orientación: 0 | Porcentaje: 	100
-Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (25, 11) | Orientación: 0 | Porcentaje: 	99.7778
+Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (25, 11) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (22, 11) | Orientación: 0 | Porcentaje: 	100
 Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (08, 14) | Orientación: 0 | Porcentaje: 	97.6667
 Mapa30 | Semilla: 0 | Nivel: 3 | Coordenadas: (07, 26) | Orientación: 0 | Porcentaje: 	100

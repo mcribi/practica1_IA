@@ -162,14 +162,32 @@ Action ComportamientoJugador::think(Sensores sensores){
 	}else if ((mirar_terreno('G',sensores.terreno)>0) && bien_situado==false && sensores.terreno[2]!='P' && sensores.terreno[2]!='M' and sensores.nivel!=0){	
 		cout<<"He visto pos"<<endl; 
 		accion=coger_posicionamiento(sensores.terreno, current_state);
+		ngiros=0;
 	}else if ((mirar_terreno('X',sensores.terreno)>0) && sensores.terreno[2]!='P' && sensores.terreno[2]!='M' and (ultima_recarga-ciclos)>200){	
 		recargando=0;
 		cout<<"He visto recarguita"<<endl; 
 		accion=coger_recarga(sensores.terreno, current_state);
+		ngiros=0;
 	}else if (sensores.terreno[0]=='X' && sensores.bateria<2000 && ciclos>1500 ){	
 		accion=actIDLE; //esperamos a estar cargados para seguir
+		/*if (bien_situado)
+			accion=giro_orientado(sensores.terreno, current_state, nveces); 
+		else 
+			accion=giro_orientado(sensores.terreno, current_state, nveces_aprox); 
+		
+		if (accion==actFORWARD)	//no quiero que salga de la casilla
+			accion=actIDLE;*/
+		
 	}else if (sensores.terreno[0]=='X' and recargando<40  and (sensores.vida-ciclos)<3000){	
 		accion=actIDLE; //esperamos a estar cargados para seguir
+		/*if (bien_situado)
+			accion=giro_orientado(sensores.terreno, current_state, nveces); 
+		else 
+			accion=giro_orientado(sensores.terreno, current_state, nveces_aprox); 
+		
+		if (accion==actFORWARD)	//no quiero que salga de la casilla
+			accion=actIDLE;
+		*/
 		recargando++;
 	}else if ((mirar_terreno('D',sensores.terreno)>0) && (zapatillas==false) && sensores.terreno[2]!='P' && sensores.terreno[2]!='M') {
 		cout<<"He visto zapatillas"<<endl; 
@@ -205,7 +223,7 @@ Action ComportamientoJugador::think(Sensores sensores){
 			ngiros++;
 		}
 		else if (!bikini and sensores.terreno[2]=='A' and ngiros<6){
-			accion=giro_random();
+			accion=giro_random_en_agua();
 			ngiros++;
 		}
 		
@@ -227,7 +245,14 @@ Action ComportamientoJugador::think(Sensores sensores){
 			ngiros=0;
 		}
 	}else if (sensores.terreno[2]=='P' or sensores.terreno[2]=='M'){
-		accion=giro_random();
+		if (bien_situado)
+			accion=giro_orientado(sensores.terreno, current_state, nveces); 
+		else 
+			accion=giro_orientado(sensores.terreno, current_state, nveces_aprox);
+		if (accion==actFORWARD){	//no quiero que salga de la casilla
+			accion=giro_random();
+			cout<<"al final giro random"<<endl;
+		}
 		ngiros++;
 	}else if (sensores.terreno[2] == 'B' and zapatillas==true){
 		accion = actFORWARD;
@@ -238,10 +263,24 @@ Action ComportamientoJugador::think(Sensores sensores){
 	}else if ((sensores.terreno[2] == 'B' or sensores.terreno[2] == 'A') and ngiros<6){
 		accion=giro_random();
 		ngiros++;
+
+		//if (sensores.terreno[2] == 'A')
+		//	accion=giro_random_en_agua();
+
 	}else{
 		cout<<"NO ME QUEDA OTRA Q AVANZAR"<<endl;
 		accion = actFORWARD;
-		ngiros=0;	
+		/*int arena= mirar_terreno('T', sensores.terreno);
+		int piedra= mirar_terreno('S', sensores.terreno);
+
+		if (arena>0){
+			accion=orientarse(mirar_terreno('T', sensores.terreno));
+		}else if (piedra>0){
+			accion=orientarse(mirar_terreno('S', sensores.terreno));
+		}else 
+			accion=actFORWARD;*/
+		//ngiros--;	
+		ngiros=0;
 	}
 	
 	last_action = accion;

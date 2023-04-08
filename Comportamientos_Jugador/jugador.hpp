@@ -546,6 +546,18 @@ class ComportamientoJugador : public Comportamiento{
     return accion; 
   }
 
+  Action giro_random_en_agua(){
+    Action accion; 
+    int girar=rand()%2;
+    	if (girar==0){
+			accion=actTURN_BR;
+		}else if (girar==1){
+			accion=actTURN_BL;
+		}
+		
+    return accion; 
+  }
+
   //mira las 16 casillas que ve y se orienta hacia la casilla menos visitada
   Action giro_orientado(const vector<unsigned char> &terreno, const state &st, vector<vector<int>>&matriz){  
     Action accion; 
