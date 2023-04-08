@@ -178,7 +178,7 @@ Action ComportamientoJugador::think(Sensores sensores){
 		if (accion==actFORWARD)	//no quiero que salga de la casilla
 			accion=actIDLE;*/
 		
-	}else if (sensores.terreno[0]=='X' and recargando<40  and (sensores.vida-ciclos)<3000){	
+	}else if (sensores.terreno[0]=='X' and recargando<30  and (sensores.vida-ciclos)<3000){	
 		accion=actIDLE; //esperamos a estar cargados para seguir
 		/*if (bien_situado)
 			accion=giro_orientado(sensores.terreno, current_state, nveces); 
@@ -218,11 +218,11 @@ Action ComportamientoJugador::think(Sensores sensores){
 		cout<<"SIGO MURO"<<endl;
 		ngiros=0;
 
-		if (!zapatillas and sensores.terreno[2]=='B' and ngiros<6){
+		if (!zapatillas and sensores.terreno[2]=='B' and ngiros<4){
 			accion=giro_random();
 			ngiros++;
 		}
-		else if (!bikini and sensores.terreno[2]=='A' and ngiros<6){
+		else if (!bikini and sensores.terreno[2]=='A' and ngiros<4){
 			accion=giro_random_en_agua();
 			ngiros++;
 		}
@@ -266,6 +266,21 @@ Action ComportamientoJugador::think(Sensores sensores){
 
 		//if (sensores.terreno[2] == 'A')
 		//	accion=giro_random_en_agua();
+
+		/*int arena= mirar_terreno('T', sensores.terreno);
+		cout<<"Veo arena en: "<<arena<<endl;
+		int piedra= mirar_terreno('S', sensores.terreno);
+		cout<<"Veo piedra en: "<<piedra<<endl;
+
+		if (arena>0){
+			accion=orientarse(arena);
+			cout<<"voy a por arena"<<endl;
+		}else if (piedra>0){
+			accion=orientarse(piedra);
+			cout<<"voy a por piedra"<<endl;
+		}else 
+			accion=actFORWARD;
+		*/
 
 	}else{
 		cout<<"NO ME QUEDA OTRA Q AVANZAR"<<endl;
